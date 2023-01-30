@@ -1,4 +1,4 @@
-do_token     = "dop_v1_03ea84b2234baf88c317132897b1c1ed9f949a0751f8f836a52cbb8b10bba185"
-ssh_key_name = "Windows"
+do_token     = "dop_v1_8da97b0166cef7541682a524720eb688e594acf53116cf7b15f232bde7b97611"
+ssh_key_name = "terraform"
 ssh_key_file = "~/.ssh/terraform.pub"
 region       = "nyc1"
