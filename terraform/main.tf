@@ -16,6 +16,14 @@ resource "digitalocean_ssh_key" "ssh_key" {
   public_key = file(var.ssh_key_file)
 }
 
+resource "digitalocean_droplet" "jenkins" {
+  image    = "ubuntu-22-04-x64"
+  name     = "jenkins-vm"
+  region   = var.region
+  size     = "s-2vcpu-2gb"
+  ssh_keys = [digitalocean_ssh_key.ssh_key.fingerprint]
+}
+
 resource "digitalocean_kubernetes_cluster" "k8s" {
   name    = "k8s"
   region  = var.region
@@ -44,7 +52,11 @@ variable "region" {
   default = "nyc1"
 }
 
-resource "local_file" "name" {
+output "jenking_ip" {
+  value = digitalocean_droplet.jenkins.ipv4_address
+}
+
+resource "local_file" "kubectl" {
   content  = digitalocean_kubernetes_cluster.k8s.kube_config.0.raw_config
   filename = "kube_config.yaml"
 }
